@@ -113,7 +113,7 @@ async function getQuestion(){
 		
 		if(answer.answerImage !== ''){
 			const ANSWER_IMAGE = document.createElement('img');
-			ANSWER_IMAGE.src = `/view/image/${QUESTION.id}/${answer.questionImage}`;
+			ANSWER_IMAGE.src = `/view/image/${answer.questionId}/${answer.answerImage}`;
 			ANSWER_CONTAINER.append(ANSWER_IMAGE);
 		}
 			
