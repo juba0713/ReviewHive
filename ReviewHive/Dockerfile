@@ -1,13 +1,34 @@
-FROM maven:3.9.6-eclipse-temurin-21 AS build  # Use a valid Maven + JDK 21 image
-WORKDIR /app  
-COPY ReviewHive/pom.xml .  
-RUN mvn dependency:go-offline  
-COPY ReviewHive/. . 
-RUN mvn clean package -DskipTests  
+FROM eclipse-temurin:21-jdk
 
-# Step 2: Create the runtime image
-FROM eclipse-temurin:21-jdk-slim  # Use a valid JDK 21 image
-WORKDIR /app  
-COPY --from=build /app/target/ReviewHive-0.0.1-SNAPSHOT.jar ReviewHive.jar  
+# Set the working directory
+WORKDIR /app
+
+# Copy the Maven wrapper and pom.xml for dependency resolution
+COPY pom.xml mvnw* .mvn/ ./
+
+# Download dependencies (use a cache layer)
+RUN ./mvnw dependency:go-offline
+
+# Copy the rest of the application source
+COPY src ./src
+
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# Extract the built JAR file name dynamically
+RUN cp target/*.jar reviewhive.jar
+
+# Use a minimal JDK runtime image for running the app
+FROM eclipse-temurin:21-jre
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the built JAR from the previous stage
+COPY --from=0 /app/reviewhive.jar reviewhive.jar
+
+# Expose the application port
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","ReviewHive.jar"]
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "reviewhive.jar"]
