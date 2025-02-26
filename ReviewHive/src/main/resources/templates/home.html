@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Review Hive - Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" th:href="@{/css/fragments/header.css}"/>
+<link rel="stylesheet" th:href="@{/css/common.css}"/>
+<link rel="stylesheet" th:href="@{/css/home.css}"/>
+</head>
+<body th:object="${questionaireDto}">
+	<main>
+		<nav th:replace="~{/fragments/header :: header}"></nav>
+		<div class="container">
+			<div class="content-header">
+				Questionnaires
+			</div>
+			<div class="content">
+				<div class="list">
+				<div class="questionaire" th:each="questionaire : *{questionaireUser}" th:id="${questionaire.id}" th:style="'border: 2px solid ' + ${questionaire.hexColor} + ';'">
+					<div>				
+						<span th:text="${questionaire.questionaireName}"></span>
+						<span th:text="${questionaire.abbreviation}" th:style="'background: ' + ${questionaire.hexColor} + ';'"></span>
+					</div>			
+					<span th:text="${questionaire.description}"></span>
+				</div>
+			</div>
+			</div>
+			
+			
+			<!-- <div class="questionaire-container-bg">
+				<div th:replace="~{/fragments/questionaire-container :: questionaireContainer}"></div>
+			</div> -->
+		</div>
+	</main>
+	
+	<script th:src="@{/js/home.js}"></script>
+	<script th:inline="javascript"> 
+		console.log(/*[[${questionaireDto}]]*/'');
+	</script>
+</body>
+</html>

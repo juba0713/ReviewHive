@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Review Hive - Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" th:href="@{/css/fragments/header.css}"/>
+<link rel="stylesheet" th:href="@{/css/common.css}"/>
+<link rel="stylesheet" th:href="@{/css/exam.css}"/>
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+</head>
+<body th:object="${questionaireDto}">
+	<main>
+		<nav th:replace="~{/fragments/header :: header}"></nav>
+		<div class="container">
+			<input type="hidden" name="questionaireId" th:value="*{id}" id="questionaireId"/>
+			<input type="hidden" name="examType" th:value="*{examType}" id="examType"/>
+			<div class="content-header">
+				<div class="flash-cards">
+					<div>
+						<img th:src="@{/icons/question.svg}">
+						<label class="total-question">0</label>
+					</div>
+					<div>
+						<img th:src="@{/icons/check.svg}">
+						<label class="total-checked">0</label>
+					</div>
+					<div>
+						<img th:src="@{/icons/wrong.svg}">
+						<label class="total-wronged">0</label>
+					</div>
+					<div>
+						<img th:src="@{/icons/skip.svg}">
+						<label class="total-skipped">0</label>
+					</div>
+				</div>
+				<div class="buttons">
+					<a class="action-btn" th:href="@{/}">BACK</a>
+				</div>
+				
+			</div>
+			<div class="content">
+				<div>
+					<button class="action-btn start-btn">Start</button>
+				</div> 	
+			</div>
+		</div>
+	</main>
+	
+	<script th:src="@{/js/exam.js}"></script>
+	<script th:inline="javascript"> 
+		const dto = /*[[${questionaireDto}]]*/'';
+		
+		
+	</script>
+</body>
+</html>

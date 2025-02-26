@@ -1,0 +1,196 @@
+.menu{
+	z-index: 50;
+}
+
+.sidebar{
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #fff;
+	width: 5rem;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow-y: auto;
+	flex-shrink: 0;
+	z-index: 10;
+	transition: 1s ease;
+	font-size: 0.8rem;
+}
+
+.sidebar.active{
+	width: 12.5rem;
+}
+
+.sidebar.active li span:nth-child(2){
+	display: flex;
+}
+
+.sidebar.active .sidebar-content li:nth-child(1){
+	display: flex;
+}
+
+.sidebar.active .sidebar-content ul li:nth-child(n+2){
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.sidebar-content ul li:nth-child(n+2){
+	display: flex;
+	align-items: center;
+}
+
+
+.sidebar-header img{
+	width: 50px;
+	height: 50px;
+}
+
+.sidebar-header{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 5px 10px;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.sidebar-content{
+	width: 100%;
+}
+
+.sidebar-content ul{
+	padding: 5px 10px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	height: min-content;
+}
+
+.sidebar-content ul li{
+	padding: 10px 10px;
+	box-sizing: border-box;
+	color: #000;
+	
+}
+
+.sidebar-content ul li svg{
+	width: 15px;
+	height: 15px;
+}
+
+.sidebar-content ul li span{
+	display: flex;
+	gap: 10px;
+	font-size: 0.8rem;
+}
+
+.sidebar-content ul li:nth-child(n+2) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.sidebar-content ul li:nth-child(n+2):hover {
+    color: #FAF9F6;
+    font-weight: bold; 
+    background: #f8f8f8;
+    border-radius: 5px;
+}
+
+
+.sidebar-content ul li:nth-child(1){
+	color: #000;
+	font-weight: 600;
+	display: none;	
+}
+
+.sidebar-content ul li span{
+	display: none;	
+	justify-content: center;
+	align-items: center;
+}
+
+.sidebar-content ul li a{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.current-screen{
+    color: #FAF9F6;
+    font-weight: bold; 
+    background: #f8f8f8;
+    border-radius: 5px;
+}
+
+.sidebar.active form{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 5px 10px;
+	box-sizing: border-box;
+}
+
+.sidebar.active form button{
+	display: flex;
+	align-items: center;	
+	justify-content: flex-start;
+	width: 100%;
+	gap: 10px;
+}
+
+.sidebar.active form button span{
+	display: block;
+}
+
+
+.sidebar form{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 5px 10px;
+	box-sizing: border-box;
+}
+
+.sidebar form button{
+	display: flex;
+	align-items: center;	
+	justify-content: center;
+	width: 100%;
+	gap: 10px;
+}
+
+.sidebar form button span{
+	display: none;
+}
+
+.sidebar form button svg{
+	width: 0.8rem;
+	height: 0.8rem;
+}
+
+/* Hide scrollbar in Webkit browsers by default */
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent; /* Invisible track */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar */
+  border-radius: 10px;
+  opacity: 0; /* Invisible by default */
+  transition: opacity 0.3s; /* Smooth visibility transition */
+}
+
+/* Make scrollbar visible when hovering over the sidebar */
+.sidebar:hover::-webkit-scrollbar-thumb {
+  opacity: 1; /* Visible on hover */
+}

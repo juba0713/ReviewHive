@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Review Hive - Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="_csrf" th:content="${_csrf.token}">
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/fragments/header.css}"/>
+<link rel="stylesheet" th:href="@{/css/fragments/sidebar.css}"/>
+<link rel="stylesheet" th:href="@{/css/common.css}"/>
+<link rel="stylesheet" th:href="@{/css/admin/questionaire-list.css}"/>
+
+</head>
+<body th:object="${questionaireDto}">
+	<main>
+		<div th:replace="~{/fragments/message-container :: messageContainer}"></div>
+		<nav th:replace="~{/fragments/header :: header}"></nav>
+		<div class="container">
+			<nav th:replace="~{/fragments/sidebar :: sidebarAdmin}"></nav>
+			<div class="content">
+				<div class="content-header">
+				<span>QUESTIONNAIRE</span>
+				<a class="action-btn" th:href="@{/admin/questionaire-add}">
+					<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<g clip-path="url(#clip0_535_96)">
+					<rect width="100" height="100" fill="#004A99"/>
+					<path d="M62.9188 5.4375C61.2364 3.71588 59.227 2.34788 57.0085 1.41389C54.7899 0.479908 52.4071 -0.0012207 50 -0.0012207C47.5929 -0.0012207 45.2101 0.479908 42.9916 1.41389C40.773 2.34788 38.7636 3.71588 37.0813 5.4375L33.1938 9.425L27.6313 9.35625C25.2234 9.32775 22.8342 9.78099 20.6041 10.6893C18.374 11.5976 16.3481 12.9427 14.6454 14.6454C12.9427 16.3481 11.5976 18.374 10.6893 20.6041C9.78099 22.8342 9.32776 25.2234 9.35626 27.6313L9.41876 33.1937L5.44376 37.0813C3.72213 38.7636 2.35413 40.773 1.42015 42.9915C0.486165 45.2101 0.0050354 47.5929 0.0050354 50C0.0050354 52.4071 0.486165 54.7899 1.42015 57.0085C2.35413 59.227 3.72213 61.2364 5.44376 62.9188L9.42501 66.8063L9.35626 72.3688C9.32776 74.7766 9.78099 77.1658 10.6893 79.3959C11.5976 81.626 12.9427 83.6519 14.6454 85.3546C16.3481 87.0573 18.374 88.4024 20.6041 89.3107C22.8342 90.219 25.2234 90.6723 27.6313 90.6438L33.1938 90.5813L37.0813 94.5563C38.7636 96.2779 40.773 97.6459 42.9916 98.5799C45.2101 99.5138 47.5929 99.995 50 99.995C52.4071 99.995 54.7899 99.5138 57.0085 98.5799C59.227 97.6459 61.2364 96.2779 62.9188 94.5563L66.8063 90.575L72.3688 90.6438C74.7766 90.6723 77.1658 90.219 79.3959 89.3107C81.626 88.4024 83.6519 87.0573 85.3546 85.3546C87.0573 83.6519 88.4024 81.626 89.3107 79.3959C90.219 77.1658 90.6723 74.7766 90.6438 72.3688L90.5813 66.8063L94.5563 62.9188C96.2779 61.2364 97.6459 59.227 98.5799 57.0085C99.5138 54.7899 99.995 52.4071 99.995 50C99.995 47.5929 99.5138 45.2101 98.5799 42.9915C97.6459 40.773 96.2779 38.7636 94.5563 37.0813L90.575 33.1937L90.6438 27.6313C90.6723 25.2234 90.219 22.8342 89.3107 20.6041C88.4024 18.374 87.0573 16.3481 85.3546 14.6454C83.6519 12.9427 81.626 11.5976 79.3959 10.6893C77.1658 9.78099 74.7766 9.32775 72.3688 9.35625L66.8063 9.41875L62.9188 5.4375ZM53.125 37.5V46.875H62.5C63.3288 46.875 64.1237 47.2042 64.7097 47.7903C65.2958 48.3763 65.625 49.1712 65.625 50C65.625 50.8288 65.2958 51.6237 64.7097 52.2097C64.1237 52.7958 63.3288 53.125 62.5 53.125H53.125V62.5C53.125 63.3288 52.7958 64.1237 52.2097 64.7097C51.6237 65.2958 50.8288 65.625 50 65.625C49.1712 65.625 48.3763 65.2958 47.7903 64.7097C47.2042 64.1237 46.875 63.3288 46.875 62.5V53.125H37.5C36.6712 53.125 35.8763 52.7958 35.2903 52.2097C34.7042 51.6237 34.375 50.8288 34.375 50C34.375 49.1712 34.7042 48.3763 35.2903 47.7903C35.8763 47.2042 36.6712 46.875 37.5 46.875H46.875V37.5C46.875 36.6712 47.2042 35.8763 47.7903 35.2903C48.3763 34.7042 49.1712 34.375 50 34.375C50.8288 34.375 51.6237 34.7042 52.2097 35.2903C52.7958 35.8763 53.125 36.6712 53.125 37.5Z" fill="#FDFEFF"/>
+					</g>
+					<defs>
+					<clipPath id="clip0_535_96">
+					<rect width="100" height="100" fill="white"/>
+					</clipPath>
+					</defs>
+					</svg>
+					<span>ADD QUESTIONNAIRE</span>
+				</a>
+			</div>	
+			<div class="content-body">
+				<div class="filter-content">
+					<div>
+						
+					</div>
+					<div>
+						<button class="action-btn prev-btn">
+							<img th:src="@{/icons/prev.svg}">
+							<span>PREV</span>
+						</button>
+						<select class="select-tag">
+							<option>1</option>
+						</select>
+						<button class="action-btn next-btn">			
+							<span>NEXT</span>
+							<img th:src="@{/icons/next.svg}">
+						</button>
+					</div>
+				</div>
+				<div class="table-content">
+					<table>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>CATEGORY</th>
+								<th>ABBREVIATION</th>
+								<th>QUESTIONNAIRE</th>
+								<th>QUESTIONS NO.</th>
+								<th>STATUS</th>
+								<th>ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+									
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+			</div>
+		</div>
+	</main>
+	<!-- Delete Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	        <form th:action="@{/admin/questionaire-delete}" method="POST">
+	        	<input type="hidden" name="id" value="0" id="hiddenId"/>
+	        	<div>
+	        		<img th:src="@{/icons/warning.svg}"/>
+	        	</div>
+	        	<div class="prompt">
+	        		<span>Are you sure you want to delete this questionnaire?</span>
+	        		<span>This process cannot be undone</span>
+				</div>
+	        	<div>
+	        		<button class="action-btn cancel-btn" type="button" data-dismiss="modal">Cancel</button>
+	        		<button class="action-btn">Confirm</button>
+	        	</div>    	
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<script th:inline="javascript">
+		const webDto = /*[[${categoryDto}]]*/'';
+	</script>
+	<script th:src="@{/js/questionaire-list.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

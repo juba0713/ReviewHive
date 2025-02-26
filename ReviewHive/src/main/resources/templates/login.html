@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Review Hive - Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" th:href="@{/css/fragments/header.css}"/>
+<link rel="stylesheet" th:href="@{/css/common.css}"/>
+<link rel="stylesheet" th:href="@{/css/login.css}"/>
+</head>
+<body>
+	<main>
+		<nav th:replace="~{/fragments/header :: header}"></nav>
+		<div class="container">
+			<form th:action="@{/admin/login}" method="POST">
+				<div>
+					<span>USERNAME</span>
+					<input type="text" name="username" />
+				</div>
+				<div>
+					<span>PASSWORD</span>
+					<input type="password" name="password" />
+				</div>
+				<button class="action-btn" type="submit">LOGOUT</button>
+			</form>
+		</div>
+	</main>
+</body>
+</html>

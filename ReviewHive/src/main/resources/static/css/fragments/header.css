@@ -1,0 +1,13 @@
+.header{
+	display: flex;
+	background: #004A99;
+	width: 100%;
+	font-size: 1rem;
+	color: #fff;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.header span:nth-child(1){
+	font-size: 1.6rem;
+}
