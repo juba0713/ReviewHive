@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.reviewhive.model.dto.QuestionaireDto;
 import com.reviewhive.model.services.QuestionaireService;
 
+/**
+ * @author Julius Basas
+ */
 @Controller
 public class HomeController {
 	
