@@ -74,6 +74,12 @@ async function getQuestion(){
 									</div>
 									<button class="action-btn skip-btn">SKIP</button>`;
 									
+	if(QUESTION.questionImage !== ''){
+		const QUESTION_IMAGE = document.createElement('img');
+		QUESTION_IMAGE.src = `/view/image/${QUESTION.id}/${QUESTION.questionImage}`;
+		QUESTION_CONTAINER.querySelector('.question').append(QUESTION_IMAGE);
+	}
+									
 	QUESTION_CONTAINER.querySelector('.skip-btn').addEventListener('click', function(){
 		if(this.classList.contains('next-btn')){
 			
@@ -104,6 +110,12 @@ async function getQuestion(){
 		ANSWER_CONTAINER.classList.add('answer');
 		ANSWER_CONTAINER.setAttribute('id', answer.id);
 		ANSWER_CONTAINER.innerHTML = `<label>${answer.answer}</label>`;
+		
+		if(answer.answerImage !== ''){
+			const ANSWER_IMAGE = document.createElement('img');
+			ANSWER_IMAGE.src = `/view/image/${QUESTION.id}/${answer.questionImage}`;
+			ANSWER_CONTAINER.append(ANSWER_IMAGE);
+		}
 			
 		ANSWER_CONTAINER.addEventListener('click', function(){
 			
