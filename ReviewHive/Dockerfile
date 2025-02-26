@@ -3,23 +3,16 @@ FROM eclipse-temurin:21-jdk
 # Set the working directory
 WORKDIR /app
 
-# Copy the Maven wrapper and pom.xml for dependency resolution
-COPY pom.xml ./
-COPY mvnw* ./
-COPY .mvn/ .mvn/
+COPY ReviewHive/pom.xml .
 
 # Download dependencies (use a cache layer)
-RUN ./mvnw dependency:go-offline
+RUN mvn dependency:go-offline  
 
 # Copy the rest of the application source
-COPY src/ ./src/
-
+COPY ReviewHive/. . 
 
 # Build the application
-RUN ./mvnw clean package -DskipTests
-
-# Extract the built JAR file name dynamically
-RUN cp target/ReviewHive-0.0.1-SNAPSHOT.jar reviewhive.jar
+RUN mvn clean package -DskipTests  
 
 # Use a minimal JDK runtime image for running the app
 FROM eclipse-temurin:21-jre
@@ -28,7 +21,7 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy the built JAR from the previous stage
-COPY --from=0 /app/reviewhive.jar reviewhive.jar
+COPY --from=build /app/target/ReviewHive-0.0.1-SNAPSHOT.jar ReviewHive.jar  
 
 # Expose the application port
 EXPOSE 8080
