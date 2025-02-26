@@ -47,6 +47,10 @@ function addStopButton(){
 	BUTTONS.innerHTML = '';
 		
 	BUTTONS.append(STOP_BUTTON);
+	
+	STOP_BUTTON.addEventListener('click', function(){
+		exitConfirmation();
+	});
 
 	getQuestion();
 }
@@ -73,6 +77,12 @@ async function getQuestion(){
 									<div class="answers">
 									</div>
 									<button class="action-btn skip-btn">SKIP</button>`;
+									
+	if(QUESTION.questionImage !== ''){
+		const QUESTION_IMAGE = document.createElement('img');
+		QUESTION_IMAGE.src = `/view/image/${QUESTION.id}/${QUESTION.questionImage}`;
+		QUESTION_CONTAINER.querySelector('.question').append(QUESTION_IMAGE);
+	}
 									
 	QUESTION_CONTAINER.querySelector('.skip-btn').addEventListener('click', function(){
 		if(this.classList.contains('next-btn')){
@@ -104,6 +114,12 @@ async function getQuestion(){
 		ANSWER_CONTAINER.classList.add('answer');
 		ANSWER_CONTAINER.setAttribute('id', answer.id);
 		ANSWER_CONTAINER.innerHTML = `<label>${answer.answer}</label>`;
+		
+		if(answer.answerImage !== ''){
+			const ANSWER_IMAGE = document.createElement('img');
+			ANSWER_IMAGE.src = `/view/image/${answer.questionId}/${answer.answerImage}`;
+			ANSWER_CONTAINER.append(ANSWER_IMAGE);
+		}
 			
 		ANSWER_CONTAINER.addEventListener('click', function(){
 			
@@ -146,6 +162,30 @@ async function getQuestion(){
 	totalQuestion++;
 	
 	totalQuestionLabel.innerHTML = totalQuestion;
+}
+
+function exitConfirmation(){
+	
+	const exitConfirmatonHTML = document.createElement('div');
+	exitConfirmatonHTML.classList.add('modal');
+	exitConfirmatonHTML.innerHTML = `	<div class="modal-content">
+												<div class="modal-header">EXIT?</div>
+												<div>Are you sure you want to exit?</div>
+												<div class="modal-buttons">
+													<button class="action-btn no-btn">NO</button>
+													<button class="action-btn yes-btn">YES</button>
+												</div>
+											</div>`;
+											
+	exitConfirmatonHTML.querySelector('.no-btn').addEventListener('click', function(){
+		this.closest('.modal').remove();
+	});
+	
+	exitConfirmatonHTML.querySelector('.yes-btn').addEventListener('click', function(){
+		window.location.href=`/questionaire?id=${QUESTIONAIRE_ID}`;
+	});
+									
+	document.getElementsByTagName('body')[0].append(exitConfirmatonHTML);
 }
 
 function toggleConfetti(){
