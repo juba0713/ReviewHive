@@ -10,7 +10,7 @@ COPY pom.xml mvnw* .mvn/ ./
 RUN ./mvnw dependency:go-offline
 
 # Copy the rest of the application source
-COPY src/ ./src/
+COPY ./ ./
 
 # Build the application
 RUN ./mvnw clean package -DskipTests
