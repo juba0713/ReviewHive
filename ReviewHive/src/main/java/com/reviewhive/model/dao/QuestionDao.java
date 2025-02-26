@@ -154,12 +154,12 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 			+ "q.question,\r\n"
 			+ "q.question_image\r\n"
 			+ "FROM m_question q\r\n"
-			+ "WHERE q.questionaire_id = 1\r\n"
+			+ "WHERE q.questionaire_id = :questionaireId\r\n"
 			+ "ORDER BY RANDOM()\r\n"
 			+ "LIMIT 1;\r\n";
 	
 	@Query(value=GET_RANDOM_QUESTION_BY_QUESTIONAIRE_ID, nativeQuery=true)
-	public List<Object[]> getRandomQUestionByQuestionaireIdRaw(int questionId) throws DataAccessException;
+	public List<Object[]> getRandomQUestionByQuestionaireIdRaw(int questionaireId) throws DataAccessException;
 	
 	/**
 	 * Get Question Details along with the answers

@@ -47,6 +47,10 @@ function addStopButton(){
 	BUTTONS.innerHTML = '';
 		
 	BUTTONS.append(STOP_BUTTON);
+	
+	STOP_BUTTON.addEventListener('click', function(){
+		exitConfirmation();
+	});
 
 	getQuestion();
 }
@@ -158,6 +162,30 @@ async function getQuestion(){
 	totalQuestion++;
 	
 	totalQuestionLabel.innerHTML = totalQuestion;
+}
+
+function exitConfirmation(){
+	
+	const exitConfirmatonHTML = document.createElement('div');
+	exitConfirmatonHTML.classList.add('modal');
+	exitConfirmatonHTML.innerHTML = `	<div class="modal-content">
+												<div class="modal-header">EXIT?</div>
+												<div>Are you sure you want to exit?</div>
+												<div class="modal-buttons">
+													<button class="action-btn no-btn">NO</button>
+													<button class="action-btn yes-btn">YES</button>
+												</div>
+											</div>`;
+											
+	exitConfirmatonHTML.querySelector('.no-btn').addEventListener('click', function(){
+		this.closest('.modal').remove();
+	});
+	
+	exitConfirmatonHTML.querySelector('.yes-btn').addEventListener('click', function(){
+		window.location.href=`/questionaire?id=${QUESTIONAIRE_ID}`;
+	});
+									
+	document.getElementsByTagName('body')[0].append(exitConfirmatonHTML);
 }
 
 function toggleConfetti(){
