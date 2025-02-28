@@ -6,6 +6,6 @@ COPY ReviewHive/. .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:21-slim
-COPY --from=build /app/target/ReviewHive-0.0.1-SNAPSHOT.jar ReviewHive-1.jar
+COPY --from=build /app/target/ReviewHive-0.0.1-SNAPSHOT.jar ReviewHive.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "ReviewHive.jar"]
