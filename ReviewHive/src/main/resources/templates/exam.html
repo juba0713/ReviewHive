@@ -12,7 +12,7 @@
 </head>
 <body th:object="${questionaireDto}">
 	<main>
-		<nav th:replace="~{/fragments/header :: header}"></nav>
+		<nav th:replace="fragments/header :: header"></nav>
 		<div class="container">
 			<input type="hidden" name="questionaireId" th:value="*{id}" id="questionaireId"/>
 			<input type="hidden" name="examType" th:value="*{examType}" id="examType"/>

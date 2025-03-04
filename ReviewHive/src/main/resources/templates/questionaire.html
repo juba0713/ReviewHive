@@ -12,7 +12,7 @@
 </head>
 <body th:object="${questionaireDto}">
 	<main>
-		<nav th:replace="~{/fragments/header :: header}"></nav>
+		<nav th:replace="fragments/header :: header"></nav>
 		<div class="container">
 			<div class="content-header">
 				<span class="abbreviation" th:text="*{questionaire.abbreviation}" th:style="'background: ' + *{questionaire.hexColor} + ';'"></span>
