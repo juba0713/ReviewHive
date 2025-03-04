@@ -40,6 +40,9 @@ public class QuestionaireServiceImpl implements QuestionaireService {
 	
 	@Autowired
 	private QuestionaireLogic questionaireLogic;
+	
+	@Autowired
+	private GoogleDriveService googleDriveService;
 
 	/**
 	 * Save Questionaire
@@ -290,6 +293,8 @@ public class QuestionaireServiceImpl implements QuestionaireService {
 	}
 
 	private void saveQuestionImage(MultipartFile questionImage, int questionaireId, int questionId) throws IOException {
+		
+		googleDriveService.uploadFile(questionImage);
 		
 		Path uploadPath = Paths.get(ApplicationPropertiesRead.getProperty("question.image.path"));
 
