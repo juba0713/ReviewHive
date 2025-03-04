@@ -61,6 +61,7 @@ public class SecurityConfig {
 						.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
 						.requestMatchers("/questionaire/**").permitAll()
 						.requestMatchers("/retrieve/**").permitAll()
+						.requestMatchers("/oauth/**").permitAll()
 						.anyRequest().authenticated())
 				.formLogin((form) -> form
 						.loginPage("/admin/login")
