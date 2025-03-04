@@ -67,7 +67,15 @@ public class GoogleDriveConfig {
 //
 //        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
         
-        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+        //return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+        
+     // Listen on deployed domain, not localhost
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder()
+                .setHost("reviewhive.onrender.com") // Change this to your domain
+                .setPort(-1) // -1 disables local port binding
+                .build();
+
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
         
 
     }
