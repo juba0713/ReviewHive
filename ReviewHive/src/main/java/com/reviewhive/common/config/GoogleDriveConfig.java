@@ -20,7 +20,6 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
-@Service
 public class GoogleDriveConfig {
 //    private static final String APPLICATION_NAME = "Spring Boot Google Drive";
 //    private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
@@ -79,4 +78,15 @@ public class GoogleDriveConfig {
         
 
   //  }
+	
+	private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
+
+    public static Drive getDriveService(String accessToken) throws GeneralSecurityException, IOException {
+        HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+
+        return new Drive.Builder(httpTransport, JSON_FACTORY, null)
+                .setHttpRequestInitializer(request -> request.getHeaders().setAuthorization("Bearer " + accessToken))
+                .setApplicationName("ReviewHive")
+                .build();
+    }
 }

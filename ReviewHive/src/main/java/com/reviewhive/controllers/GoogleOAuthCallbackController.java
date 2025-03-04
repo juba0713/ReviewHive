@@ -24,7 +24,7 @@ public class GoogleOAuthCallbackController {
     private static final String CLIENT_SECRET = "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";
     private static final String REDIRECT_URI = "https://reviewhive.onrender.com/oauth/callback";
 
-    @GetMapping("/callback")
+    @GetMapping("/callback")	
     public ResponseEntity<?> handleCallback(@RequestParam("code") String code) {
         try {
             HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
