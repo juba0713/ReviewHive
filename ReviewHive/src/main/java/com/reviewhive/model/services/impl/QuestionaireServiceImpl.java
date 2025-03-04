@@ -294,7 +294,7 @@ public class QuestionaireServiceImpl implements QuestionaireService {
 
 	private void saveQuestionImage(MultipartFile questionImage, int questionaireId, int questionId) throws IOException {
 		
-		googleDriveService.uploadFile(questionImage);
+		//googleDriveService.uploadFile(questionImage);
 		
 		Path uploadPath = Paths.get(ApplicationPropertiesRead.getProperty("question.image.path"));
 
