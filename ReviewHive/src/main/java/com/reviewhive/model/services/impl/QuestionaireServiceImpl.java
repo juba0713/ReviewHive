@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,9 +39,6 @@ public class QuestionaireServiceImpl implements QuestionaireService {
 	
 	@Autowired
 	private QuestionaireLogic questionaireLogic;
-	
-	@Autowired
-	private GoogleDriveService googleDriveService;
 
 	/**
 	 * Save Questionaire
@@ -293,8 +289,6 @@ public class QuestionaireServiceImpl implements QuestionaireService {
 	}
 
 	private void saveQuestionImage(MultipartFile questionImage, int questionaireId, int questionId) throws IOException {
-		
-		googleDriveService.uploadFile(questionImage);
 		
 		Path uploadPath = Paths.get(ApplicationPropertiesRead.getProperty("question.image.path"));
 
