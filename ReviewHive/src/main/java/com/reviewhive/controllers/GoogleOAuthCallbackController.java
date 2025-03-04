@@ -20,8 +20,8 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 @RequestMapping("/oauth")
 public class GoogleOAuthCallbackController {
 
-    private static final String CLIENT_ID = "your-client-id.apps.googleusercontent.com";
-    private static final String CLIENT_SECRET = "your-client-secret";
+    private static final String CLIENT_ID = "274648807175-k6n61ijgfk6r15nfpb7l86987ai8a88h.apps.googleusercontent.com";
+    private static final String CLIENT_SECRET = "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";
     private static final String REDIRECT_URI = "https://reviewhive.onrender.com/oauth/callback";
 
     @GetMapping("/callback")
