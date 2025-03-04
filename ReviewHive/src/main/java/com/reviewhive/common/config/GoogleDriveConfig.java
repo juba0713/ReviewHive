@@ -50,22 +50,25 @@ public class GoogleDriveConfig {
                 httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
-                .build();
+                .build(); 
         
-//        LocalServerReceiver receiver = new LocalServerReceiver.Builder()
+//        LocalServerReceiver receiver = new LocalServerReceiver.B uilder()
 //                .setPort(8083) // Set your desired port
 //                .setCallbackPath("/Callback") // Ensure callback path matches Google settings
 //                .build();
 //
 //        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
         
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder()
-                .setHost("0.0.0.0") // Allows external connections
-                .setPort(443) // Use 443 for HTTPS
-                .setCallbackPath("/oauth2callback") // Ensure it matches Google redirect URI
-                .build();
-
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+//        LocalServerReceiver receiver = new LocalServerReceiver.Builder()
+//                .setHost("0.0.0.0") // Allows external connections
+//                .setPort(443) // Use 443 for HTTPS
+//                .setCallbackPath("/oauth2callback") // Ensure it matches Google redirect URI
+//                .build();
+//
+//        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+        
+        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+        
 
     }
 }
