@@ -59,6 +59,7 @@ if(webDto.retrievedQuestions.length != 0){
 					answersContainer.appendChild(answerContainer);
 					
 					if(answer.answerImage != null && answer.answerImage != ""){
+						console.log("IN");
 						let answerImageCont = document.createElement('img');
 						answerImageCont.classList.add('answer-image');
 				        answerImageCont.src = `/view/image/${question.id}/${answer.answerImage}`;

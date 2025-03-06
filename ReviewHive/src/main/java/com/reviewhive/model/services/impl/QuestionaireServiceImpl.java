@@ -274,14 +274,19 @@ public class QuestionaireServiceImpl implements QuestionaireService {
 				answer.setQuestionaireId(questionaireId);
 				answer.setAnswer(answerObj.getAnswer());
 				answer.setIsCorrect(answerObj.getIsCorrect());
-				answer.setAnswerImage(newFilename);
 				answer.setIsOpen(true);							
 				answer.setCreatedDate(DateFormatUtil.currentDate());
 				answer.setUpdatedDate(DateFormatUtil.currentDate());
 				answer.setDeleteFlg(false);
+				answer.setAnswer(CommonConstant.BLANK);
+				
+				
+				if(!answerObj.getAnswerImage().isEmpty()) {
+					answer.setAnswerImage(newFilename);
+					saveAnswerImage(answerObj.getAnswerImage(), questionaireId, questionId, newFilename);
+				}
 				
 				answers.add(answer);
-				saveAnswerImage(answerObj.getAnswerImage(), questionaireId, questionId, newFilename);
 			}
 			
 			questionaireLogic.saveAllQuestionaireQuestionAnswers(answers);

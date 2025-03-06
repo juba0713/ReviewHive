@@ -80,26 +80,27 @@
 }
 
 .answers{
-	height: auto;
 	display: flex;
-	flex-direction: row;
-	gap: 0.5rem;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
+    flex-wrap: wrap; /* Ensures wrapping if necessary */
+    gap: 1rem; /* Adds spacing between items */
+    justify-content: center; 
 	
 }
 
 .answers > div{
 	display: flex;
-	flex-direction: column;
-	width: 19.5rem;
-	justify-content: center;
-	padding: 0.5rem;
-	box-sizing: border-box;
-	border-radius: 0.25rem;
-	align-items: center;
-	box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    flex-direction: column;
+    width: 19.5rem;
+    justify-content: center;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    align-items: center;
+    text-align: center;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, 
+                rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    min-height: 1.2rem; /* Ensures a minimum height */
+    flex-grow: 1;
 }
 
 .answers > div:hover{

@@ -16,4 +16,6 @@ public class CommonConstant {
 	public static final String MULTIPLE_CHOICE = "1";
 	public static final String TRUE_FALSE = "2";
 	public static final String IDENTIFICATION = "3";
+	
+	public static final String BLANK = "";
 }
