@@ -31,7 +31,15 @@ const totalWrongedLabel = document.querySelector('.total-wronged');
 
 const totalSkippedLabel = document.querySelector('.total-skipped');
 
+let totalSeconds = 0;
+
+let timerInterval;
+		
 START_BUTTON.addEventListener('click', function(){
+	
+	if(dto.examType == 1){
+		startTimer(hour, minute, second);
+	}
 	
 	addStopButton();
 	
@@ -229,4 +237,31 @@ function toggleConfetti(){
 	  startVelocity: 45,
 	});
 }
+
+
+
+    function startTimer(hours, minutes, seconds) {
+       if (!timerInterval) { // Prevent multiple intervals
+           totalSeconds = hours * 3600 + minutes * 60 + seconds;
+           updateTimer();
+           timerInterval = setInterval(updateTimer, 1000);
+       }
+   }
+	
+    function updateTimer() {
+        if (totalSeconds < 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            return;
+        }
+
+        let hrs = Math.floor(totalSeconds / 3600);
+        let mins = Math.floor((totalSeconds % 3600) / 60);
+        let secs = totalSeconds % 60;
+
+        document.querySelector('.time').textContent = 
+            `${String(hrs).padStart(2, '0')} : ${String(mins).padStart(2, '0')} : ${String(secs).padStart(2, '0')}`;
+
+        totalSeconds--;
+    }
 

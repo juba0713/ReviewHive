@@ -51,10 +51,14 @@ public class HomeController {
 		webDto.setId(id);
 		
 		webDto.setExamType(type);
+//		
+//		QuestionaireDto outDto = questionaireService.getRandomQuestion(webDto);
+//		
+//		webDto.setRandomQuestion(outDto.getRandomQuestion());
 		
-		QuestionaireDto outDto = questionaireService.getRandomQuestion(webDto);
+		QuestionaireDto questionDto = questionaireService.getQuestionaireById(webDto);
 		
-		webDto.setRandomQuestion(outDto.getRandomQuestion());
+		webDto.setQuestionaire(questionDto.getQuestionaire());	
 		
 	    return "exam";
 	}
@@ -66,10 +70,14 @@ public class HomeController {
 		QuestionaireDto inDto = new QuestionaireDto();
 		
 		inDto.setId(id);
-	
-		QuestionaireDto outDto = questionaireService.getRandomQuestion(inDto);
 		
-		return ResponseEntity.ok(outDto);
+		QuestionaireDto webDto = new QuestionaireDto();
+	
+		QuestionaireDto randomQuestionDto = questionaireService.getRandomQuestion(inDto);
+		
+		webDto.setRandomQuestion(randomQuestionDto.getRandomQuestion());
+		
+		return ResponseEntity.ok(webDto);
 	}
 	
 
