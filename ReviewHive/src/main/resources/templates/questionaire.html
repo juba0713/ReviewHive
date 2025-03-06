@@ -38,85 +38,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="statistics">
-					<div>
-						<span>Demo Exam</span>
-						<div class="chart">
-							<div class="chart-container">
-								<canvas id="myChart"></canvas>
-							</div>
-							<div class="chart-container">
-								<canvas id="scoreChart"></canvas>
-							</div>							
-						</div>
-					</div>
-					<!-- <div>
-						<span>Flashcards</span>
-						<div class="chart">
-							<div class="chart-container">
-								<canvas id="myChart"></canvas>
-							</div>
-							<div class="chart-container">
-								<canvas id="scoreChart"></canvas>
-							</div>							
-						</div>
-					</div> -->
-				</div>
 			</div>
-
 		</div>
 	</main>
 	<script th:inline="javascript"> 
 		console.log(/*[[${questionaireDto}]]*/'');
 		
-		var ctx = document.getElementById("myChart").getContext('2d');
-		var myChart = new Chart(ctx, {
-		  type: 'pie',
-		  data: {
-		    labels: ["PASSED", "FAILED"],
-		    datasets: [{
-		      backgroundColor: [
-		        "#28A745",
-		        "#DC3545"
-		      ],
-		      data: [1,1]
-		    }]
-		  }
-		});
-		
-		var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-		var yValues = [10, 20, 30, 40, 50]; // Adjusted sample values
-		var barColors = ["red", "green", "blue", "orange", "brown"];
-
-		var scoreChart = new Chart("scoreChart", {
-		  type: "bar",
-		  data: {
-		    labels: xValues,
-		    datasets: [{
-		      label: "Score",  // <-- Fix legend label
-		      backgroundColor: barColors,
-		      data: yValues
-		    }]
-		  },
-		  options: {
-		    plugins: {
-		      title: {
-		        display: true,
-		        text: "Score Graph",  // <-- Add the title text
-		        font: {
-		          size: 20,
-		          weight: "bold"
-		        },
-		        color: "#333",
-		        padding: {
-		          top: 10,
-		          bottom: 20
-		        }
-		      }
-		    }
-		  }
-		});
-
 		
 		document.querySelectorAll('.exam-btn').forEach(btn => btn.addEventListener('click', function(){
 			const questionaireId = document.getElementById('questionaireId').value;
