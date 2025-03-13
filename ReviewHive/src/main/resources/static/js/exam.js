@@ -47,12 +47,40 @@ START_BUTTON.addEventListener('click', function(){
 });
 
 function addStopButton(){
+	
+	BUTTONS.innerHTML = '';
+	
+	if(EXAM_TYPE == 1){
+		const SUBMIT_BUTTON = document.createElement('button');
+		SUBMIT_BUTTON.classList.add('action-btn');
+		SUBMIT_BUTTON.classList.add('submit-btn');
+		SUBMIT_BUTTON.innerHTML = 'SUBMIT';
+		
+		BUTTONS.append(SUBMIT_BUTTON);
+		
+		SUBMIT_BUTTON.addEventListener('click', function(){
+			// Stop the timer
+		    if (timerInterval) {
+		        clearInterval(timerInterval);
+		        timerInterval = null; // Prevent restarting
+		    }
+
+		    // Calculate total correct answers
+		    let correctCount = 0;
+		    realAnswers.forEach((correctValue, key) => {
+		        if (userAnswers.has(key) && userAnswers.get(key) === correctValue) {
+		            correctCount++;
+		        }
+		    });
+
+		    finalScoring(correctCount);
+		});
+	}
+			
 	const STOP_BUTTON = document.createElement('button'); 
     STOP_BUTTON.textContent = "STOP";
 	STOP_BUTTON.style.background = "#DC3545";
 	STOP_BUTTON.classList.add('action-btn');
-	
-	BUTTONS.innerHTML = '';
 		
 	BUTTONS.append(STOP_BUTTON);
 	
