@@ -174,6 +174,8 @@ async function getQuestion(){
 	
 	const QUESTION = DATA.randomQuestion;
 	
+	console.log(QUESTION);
+	
 	const QUESTION_CONTAINER = document.createElement('div');
 	QUESTION_CONTAINER.classList.add('question-container');
 	QUESTION_CONTAINER.innerHTML = `<div class="question">
@@ -203,6 +205,8 @@ async function getQuestion(){
 			totalSkippedLabel.innerHTML = totalSkipped;
 			
 			getQuestion();
+			
+			hasAnswered = false;
 		}
 	});
 									
@@ -246,6 +250,8 @@ async function getQuestion(){
 				totalWronged++;
 				
 				this.style.background = '#FF4C4C';
+				
+				console.log(correctAnswer);
 				
 				document.getElementById(correctAnswer).style.background = '#4CAF50';
 				
