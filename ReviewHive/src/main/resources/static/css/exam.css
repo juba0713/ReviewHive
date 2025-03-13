@@ -90,6 +90,7 @@ hr{
 
 .question{
 	padding: 0.5rem;
+	box-sizing: border-box;
 	border-radius: 0.25rem;
 	color: #000;
 	display: flex;
@@ -101,6 +102,7 @@ hr{
 
 .questions{
 	padding: 0.5rem;
+	box-sizing: border-box;
 	border-radius: 0.25rem;
 	color: #000;
 	display: flex;
@@ -116,6 +118,7 @@ hr{
 .answers img{
 	object-fit: contain;
 	width: inherit;
+	max-height: 15rem;
 }
 
 .answers{
