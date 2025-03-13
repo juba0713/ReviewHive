@@ -331,4 +331,15 @@ public class QuestionaireLogicImpl implements QuestionaireLogic{
 		return questionDao.getRandomQUestionByQuestionaireId(questionaireId);
 	}
 
+	/**
+	 * Get one hundred random questions by questionaire id
+	 * @param questionaireId
+	 * @return RandomQuestionEntity
+	 */
+	@Override
+	public List<RandomQuestionEntity> getOneHundredRandomQuestionsByQuestionaireId(int questionaireId) {
+		
+		return questionDao.getOneHundredRandomQuestionsByQuestionaireId(questionaireId);
+	}
+
 }

@@ -210,4 +210,11 @@ public interface QuestionaireLogic {
 	 */
 	public RandomQuestionEntity getRandomQuestionByQuestionaireId(int questionaireId);
 	
+	/**
+	 * Get one hundred random questions by questionaire id
+	 * @param questionaireId
+	 * @return RandomQuestionEntity
+	 */
+	public List<RandomQuestionEntity> getOneHundredRandomQuestionsByQuestionaireId(int questionaireId);
+	
 }

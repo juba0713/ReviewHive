@@ -80,4 +80,6 @@ public class QuestionaireDto {
 	
 	private RandomQuestionEntity randomQuestion;
 	
+	private List<RandomQuestionEntity> oneHundredQuestions;
+	
 }

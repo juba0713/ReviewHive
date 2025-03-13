@@ -64,4 +64,11 @@ public interface QuestionaireService {
 	 * @return QuestionaireDto
 	 */
 	public QuestionaireDto getRandomQuestion(QuestionaireDto inDto);
+	
+	/**
+	 * Get a one hundred random Question 
+	 * @param inDto
+	 * @return QuestionaireDto
+	 */
+	public QuestionaireDto getOneHundredRandomQuestion(QuestionaireDto inDto);
 }

@@ -80,5 +80,22 @@ public class HomeController {
 		return ResponseEntity.ok(webDto);
 	}
 	
+	@GetMapping("/retrieve/questionaire/hundred/{id}")
+	public ResponseEntity<QuestionaireDto> retrieveOneHundredQuestion(@PathVariable("id") int id,
+	                            @RequestParam("type") int type) {
+		
+		QuestionaireDto inDto = new QuestionaireDto();
+		
+		inDto.setId(id);
+		
+		QuestionaireDto webDto = new QuestionaireDto();
+	
+		QuestionaireDto randomQuestionsDto = questionaireService.getOneHundredRandomQuestion(inDto);
+		
+		webDto.setOneHundredQuestions(randomQuestionsDto.getOneHundredQuestions());
+		
+		return ResponseEntity.ok(webDto);
+	}
+	
 
 }
