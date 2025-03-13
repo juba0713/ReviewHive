@@ -192,4 +192,55 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		return question;
 	}
 	
+	/*
+	 * Query for retrieving 100 random questions
+	 */
+	public static final String GET_ONE_HUNDRED_RANDOM_QUESTIONS = "SELECT DISTINCT ON (q.question) \r\n"
+			+ "q.id, \r\n"
+			+ "q.question, \r\n"
+			+ "q.question_image\r\n"
+			+ "FROM m_question q\r\n"
+			+ "WHERE q.questionaire_id = :questionaireId\r\n"
+			+ "ORDER BY q.question, RANDOM()\r\n"
+			+ "LIMIT 100;\r\n"
+			+ "";
+	
+	@Query(value=GET_ONE_HUNDRED_RANDOM_QUESTIONS, nativeQuery=true)
+	public List<Object[]> getOneHundredRandomQuestionsByQuestionaireIdRaw(int questionaireId) throws DataAccessException;
+	
+	/**
+	 * Get 100 ramdon questions along with the answers
+	 * @param questionaireId
+	 * @return
+	 */
+	default List<RandomQuestionEntity> getOneHundredRandomQuestionsByQuestionaireId(int questionaireId){
+		
+		List<RandomQuestionEntity> questions = new ArrayList<>();
+		
+		List<Object[]> rawData = getOneHundredRandomQuestionsByQuestionaireIdRaw(questionaireId);
+		
+		for(Object[] data : rawData) {
+			
+			RandomQuestionEntity question = new RandomQuestionEntity(data);
+			
+			List<AnswerDetailsEntity> answers = new ArrayList<>();
+
+			List<Object[]> answersRaw = getAnswerDetailsByQuestionIdRaw(question.getId());
+			
+			for(Object[] aObject : answersRaw) {
+				
+				AnswerDetailsEntity answer = new AnswerDetailsEntity(aObject);
+				
+				answers.add(answer);
+			}
+			
+			question.setAnswers(answers);
+			
+			questions.add(question);
+		
+		}
+		
+		return questions;
+
+	}
 }

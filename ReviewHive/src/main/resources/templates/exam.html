@@ -17,7 +17,13 @@
 			<input type="hidden" name="questionaireId" th:value="*{id}" id="questionaireId"/>
 			<input type="hidden" name="examType" th:value="*{examType}" id="examType"/>
 			<div class="content-header">
-				<div class="flash-cards">
+				<div class="flash-cards" th:if="*{examType == 1}">
+					<div>
+						<img th:src="@{/icons/hourglass.svg}">
+						<label class="time">00 : 00 : 00</label>
+					</div>
+				</div>
+				<div class="flash-cards" th:if="*{examType == 2}">
 					<div>
 						<img th:src="@{/icons/question.svg}">
 						<label class="total-question">0</label>
@@ -51,7 +57,12 @@
 	<script th:src="@{/js/exam.js}"></script>
 	<script th:inline="javascript"> 
 		const dto = /*[[${questionaireDto}]]*/'';
+		console.log(dto);
 		
+		const examType = dto.examType;
+		const hour = parseInt(dto.questionaire.hour, 10) || 0;
+		const minute = parseInt(dto.questionaire.minute, 10) || 0;
+		const second = parseInt(dto.questionaire.second, 10) || 0;
 		
 	</script>
 </body>

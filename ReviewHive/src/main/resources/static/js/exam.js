@@ -31,7 +31,15 @@ const totalWrongedLabel = document.querySelector('.total-wronged');
 
 const totalSkippedLabel = document.querySelector('.total-skipped');
 
+let totalSeconds = 0;
+
+let timerInterval;
+		
 START_BUTTON.addEventListener('click', function(){
+	
+	if(dto.examType == 1){
+		startTimer(hour, minute, second);
+	}
 	
 	addStopButton();
 	
@@ -51,8 +59,107 @@ function addStopButton(){
 	STOP_BUTTON.addEventListener('click', function(){
 		exitConfirmation();
 	});
+	
+	if(EXAM_TYPE == 1){
+		getOneHundredQuestion();
+	}else if(EXAM_TYPE == 2){
+		getQuestion();
+	}
+}
 
-	getQuestion();
+let realAnswers = new Map();
+let userAnswers = new Map();
+
+async function getOneHundredQuestion(){
+	
+	const res = await fetch(`/retrieve/questionaire/hundred/${QUESTIONAIRE_ID}?type=${EXAM_TYPE}`);
+		
+	if(!res.ok){
+		console.log("Error in fetching a question!");
+	}
+	
+	const DATA = await res.json();
+	
+	const QUESTIONS = DATA.oneHundredQuestions;
+	
+	console.log(QUESTIONS);
+	
+	const SCROLLABLE = document.createElement("div");
+	SCROLLABLE.classList.add("scrollable");
+	
+	for(let question of QUESTIONS){
+		
+		userAnswers.set(question.id, 0);
+		
+		const QUESTION_CONTAINER = document.createElement('div');
+		QUESTION_CONTAINER.classList.add('question-containers');
+		QUESTION_CONTAINER.innerHTML = `<div class="questions">
+											<label>${question.question}</label>									
+										</div>
+										<div class="answers"></div>`;
+										
+		if(question.questionImage != null && question.questionImage != ''){
+			const QUESTION_IMAGE = document.createElement('img');
+			QUESTION_IMAGE.src = `/view/image/${question.id}/${question.questionImage}`;
+			QUESTION_CONTAINER.querySelector('.questions').append(QUESTION_IMAGE);
+		}
+																		
+		const ANSWERS_CONTAINER = QUESTION_CONTAINER.querySelector('.answers');
+
+		for(let answer of question.answers){
+			
+			if(answer.isCorrect){
+				correctAnswer = answer.id;
+				realAnswers.set(question.id, answer.id);
+			}
+			
+			const ANSWER_CONTAINER = document.createElement('div');
+			ANSWER_CONTAINER.classList.add('answer');
+			ANSWER_CONTAINER.setAttribute('question-id', question.id);
+			ANSWER_CONTAINER.setAttribute('id', answer.id);
+			ANSWER_CONTAINER.innerHTML = `<label>${answer.answer}</label>`;
+			
+			if(answer.answerImage != null && answer.answerImage != ''){
+				const ANSWER_IMAGE = document.createElement('img');
+				ANSWER_IMAGE.src = `/view/image/${answer.questionId}/${answer.answerImage}`;
+				ANSWER_CONTAINER.append(ANSWER_IMAGE);
+			}
+				
+			ANSWER_CONTAINER.addEventListener('click', function(){
+								
+				this.parentElement.querySelectorAll('.answer').forEach(answer => answer.classList.remove('answered'));
+				
+				this.classList.toggle('answered');	
+				
+				userAnswers.set(Number(this.getAttribute('question-id')), Number(this.getAttribute('id')));
+				
+				console.log(realAnswers);
+				console.log(userAnswers);
+			});
+			
+			ANSWERS_CONTAINER.append(ANSWER_CONTAINER);
+		}
+		
+		const HR = document.createElement('hr');
+		HR.setAttribute('size', 5);
+		HR.setAttribute('color', "#000");
+		
+		const HR1 = document.createElement('hr');
+		HR1.setAttribute('size', 5);
+		HR1.setAttribute('color', "#000");
+		
+		const QUESTIONLABEL = document.createElement('div');
+		QUESTIONLABEL.innerHTML = "QUESTION";
+		
+		SCROLLABLE.append(HR);
+		SCROLLABLE.append(QUESTIONLABEL);
+		SCROLLABLE.append(HR1);
+		
+		SCROLLABLE.append(QUESTION_CONTAINER);
+	}
+	
+	CONTENT.append(SCROLLABLE);
+
 }
 
 async function getQuestion(){
@@ -66,8 +173,6 @@ async function getQuestion(){
 	const DATA = await res.json();
 	
 	const QUESTION = DATA.randomQuestion;
-	
-	console.log(DATA);
 	
 	const QUESTION_CONTAINER = document.createElement('div');
 	QUESTION_CONTAINER.classList.add('question-container');
@@ -107,7 +212,6 @@ async function getQuestion(){
 		
 		if(answer.isCorrect){
 			correctAnswer = answer.id;
-			console.log("ASSIGNED CORRECT");
 		}
 		
 		const ANSWER_CONTAINER = document.createElement('div');
@@ -128,7 +232,8 @@ async function getQuestion(){
 			}
 			
 			hasAnswered = true;
-			
+
+				
 			if(this.id == correctAnswer){
 				totalChecked++;
 				
@@ -149,7 +254,8 @@ async function getQuestion(){
 			
 			const SKIP_BTN = document.querySelector('.skip-btn');
 			SKIP_BTN.classList.add('next-btn');
-			SKIP_BTN.innerHTML = 'NEXT';
+			SKIP_BTN.innerHTML = 'NEXT';		
+			
 		});
 		
 		ANSWERS_CONTAINER.append(ANSWER_CONTAINER);
@@ -158,10 +264,11 @@ async function getQuestion(){
 	
 	CONTENT.innerHTML = '';
 	CONTENT.append(QUESTION_CONTAINER);
-	
+
 	totalQuestion++;
+
+	totalQuestionLabel.innerHTML = totalQuestion;		
 	
-	totalQuestionLabel.innerHTML = totalQuestion;
 }
 
 function exitConfirmation(){
@@ -187,6 +294,83 @@ function exitConfirmation(){
 									
 	document.getElementsByTagName('body')[0].append(exitConfirmatonHTML);
 }
+
+function finalScoring(totalCorrect){
+	
+	const finalScoringHTML = document.createElement('div');
+	finalScoringHTML.classList.add('modal');
+	finalScoringHTML.innerHTML = `	<div class="modal-content">
+												<div class="modal-header">RESULT - <span class="${totalCorrect > 60 ? 'passed' : 'failed'}">${totalCorrect > 60 ? 'PASSED' : 'FAILED'}</span></div>
+												<div>Score: ${totalCorrect} / 100</div>
+												<div class="modal-buttons">
+													<button class="action-btn no-btn">EXIT</button>
+													<button class="action-btn yes-btn">TRY AGAIN</button>
+												</div>
+											</div>`;
+											
+	finalScoringHTML.querySelector('.no-btn').addEventListener('click', function(){
+		window.location.href=`/questionaire?id=${QUESTIONAIRE_ID}`;
+	});
+	
+	finalScoringHTML.querySelector('.yes-btn').addEventListener('click', function(){
+		getOneHundredQuestion();
+		realAnswers.clear();
+		userAnswers.clear();
+		CONTENT.innerHTML = '';
+		startTimer(hour, minute, second);
+		this.closest('.modal').remove();
+	});
+									
+	document.getElementsByTagName('body')[0].append(finalScoringHTML);
+
+}
+
+function startTimer(hours, minutes, seconds) {
+   if (!timerInterval) { // Prevent multiple intervals
+       totalSeconds = hours * 3600 + minutes * 60 + seconds;
+       updateTimer();
+       timerInterval = setInterval(updateTimer, 1000);
+   }
+}
+	
+function updateTimer() {
+    if (totalSeconds < 0) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        return;
+    }
+
+    if (totalSeconds == 0) {    
+        clearInterval(timerInterval); // Stop the timer before running finalScoring
+        timerInterval = null;
+
+        // Calculate total correct answers
+        let correctCount = 0;
+        realAnswers.forEach((correctValue, key) => {
+            if (userAnswers.has(key) && userAnswers.get(key) === correctValue) {
+                correctCount++;
+            }
+        });
+
+        finalScoring(correctCount); // Now it will run only once
+        return;
+    }
+
+    let hrs = Math.floor(totalSeconds / 3600);
+    let mins = Math.floor((totalSeconds % 3600) / 60);
+    let secs = totalSeconds % 60;
+
+    document.querySelector('.time').textContent = 
+        `${String(hrs).padStart(2, '0')} : ${String(mins).padStart(2, '0')} : ${String(secs).padStart(2, '0')}`;
+
+    totalSeconds--;
+}
+
+
+function stopDemoExam(){
+	
+}
+
 
 function toggleConfetti(){
 	const count = 200,
@@ -229,4 +413,3 @@ function toggleConfetti(){
 	  startVelocity: 45,
 	});
 }
-

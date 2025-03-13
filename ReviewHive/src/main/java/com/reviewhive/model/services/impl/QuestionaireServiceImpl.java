@@ -407,4 +407,16 @@ public class QuestionaireServiceImpl implements QuestionaireService {
 		return outDto;
 	}
 
+	@Override
+	public QuestionaireDto getOneHundredRandomQuestion(QuestionaireDto inDto) {
+		
+		QuestionaireDto outDto = new QuestionaireDto();
+		
+		List<RandomQuestionEntity> questions = questionaireLogic.getOneHundredRandomQuestionsByQuestionaireId(inDto.getId());
+		
+		outDto.setOneHundredQuestions(questions);
+		
+		return outDto;
+	}
+
 }

@@ -50,6 +50,7 @@ public class SecurityConfig {
 		http
 				.authorizeHttpRequests((requests) -> requests
 						.requestMatchers("/ping").permitAll()
+						.requestMatchers("/api/**").permitAll()
 						.requestMatchers("/view/**").permitAll()
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/css/**").permitAll()

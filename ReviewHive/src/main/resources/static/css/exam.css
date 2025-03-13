@@ -32,7 +32,6 @@
 	border-radius: 0.25rem;
 	padding: 1rem;
 	justify-content: center;
-	align-items: center;
 	overflow-y: auto;
 	box-sizing: border-box;
 }
@@ -57,11 +56,36 @@
 
 .question-container{
 	max-width: 40rem;
-	height: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
 	width: inherit;
+	height: 100%;
+}
+
+hr{
+	color: #000;
+	width: inherit;
+	margin: 0;
+}
+
+.question-containers{
+	max-width: 40rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: inherit;
+	height: max-content;
+}
+
+.scrollable{
+	max-width: 40rem;
+	height: max-content;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: inherit;
+	justify-content: flex-start;
 }
 
 .question{
@@ -75,7 +99,20 @@
 	width: inherit;
 }
 
+.questions{
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+	color: #000;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	align-items: center;
+	width: inherit;
+	height: inherit;
+}
+
 .question img,
+.questions img,
 .answers img{
 	object-fit: contain;
 	width: inherit;
@@ -104,12 +141,18 @@
     min-height: 1.2rem; /* Ensures a minimum height */
     flex-grow: 1;
     width: inherit;
+    height: inherit;
 }
 
 .answers > div:hover{
 	background: #004A99;
 	color: #fff;
 	cursor: pointer;
+}
+
+.answers > div.answered{
+	background: #004A99;
+	color: #fff;
 }
 
 .modal{
@@ -126,6 +169,14 @@
 .modal-header{
 	font-size: 1rem;
 	font-weight: bold;
+}
+
+.modal-header span.passed{
+	color: #4CAF50;
+}
+
+.modal-header span.failed{
+	color: #FF4C4C;
 }
 
 .modal-content{
